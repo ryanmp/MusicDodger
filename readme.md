@@ -4,5 +4,5 @@
 
 Visit:
 
-[ryanmp.github.io/music_dodger](http://ryanmp.github.io/music_dodger/index.html)
+[ryanmp.github.io/musicdodger](http://ryanmp.github.io/musicdodger/index.html)
 

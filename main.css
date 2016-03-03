@@ -59,17 +59,17 @@ h1{
 	font-size:80px;
 	color:#eee;
     margin-top: 0;
-	margin-bottom:20px;
+	margin-bottom:15px;
     text-align: center;
 }
 
 h2{
     font-family: 'HelveticaNeue-UltraLight', 'Lato', sans-serif;
 	font-weight:100;
-	font-size:30px;
+	font-size:24px;
 	color:#eee;
     margin-top: 0;
-	margin-bottom:20px;
+	margin-bottom:15px;
     text-align: center;
 }
 
@@ -78,16 +78,15 @@ table{
 	border-collapse:collapse;
      margin-left:auto; 
     margin-right:auto;
-    width: 800px;
+    width: 70%;
+    margin-bottom: 30px;
    
-    display: block;
-
 }
 
 table tr td{
 	border-collapse:collapse; 
 	margin:0px;
-     padding: 20px;
+     padding: 10px;
 	-webkit-transition: background-color 100ms linear;
     -moz-transition: background-color 100ms linear;
     -o-transition: background-color 100ms linear;
@@ -97,7 +96,13 @@ table tr td{
 }
 
 img.screenshot{
-    width: 100px;
+    
+    border: solid 12px #000;
+    border-radius: 20px;
+    border-top-width: 25px;
+    border-bottom-width: 25px;
+    
+    width: 90%;
     height: auto;
 }
 
