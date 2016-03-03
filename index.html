@@ -1,0 +1,161 @@
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Music Dodger</title>
+		<link href='http://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" src="normalize.css" />
+		<link rel="stylesheet" href="main.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />     
+	</head>
+	<body>
+        <canvas id="c"></canvas>
+		<div class="container">
+			<div class="content">
+
+				<h1>MUSIC DODGER</h1>
+
+                <h2>A minimal, musical action game by Ryan Mark Phillips</h2>
+				
+                <table><tr>
+                    <td><img class="screenshot" src="screenshot1.png"></td>
+                    <td><img class="screenshot" src="screenshot2.png"></td>
+                </tr></table>
+                
+                <div class="link"><a href="https://geo.itunes.apple.com/us/app/"><img src="Download_on_the_App_Store_Badge_US-UK_135x40.svg"></a></div>
+
+			</div>
+		</div>
+
+	</body>
+    <script>
+        window.requestAnimFrame = (function () {
+    return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function ( /* function */ callback, /* DOMElement */ element) {
+        window.setTimeout(callback, 1000 / 30);
+    };
+})();
+
+canvas = document.getElementById('c');
+ctx = canvas.getContext('2d');
+
+w = canvas.width = window.innerWidth;
+h = canvas.height = window.innerHeight;
+
+num_points = 5000;
+per_burst = 5;
+pt_acc = 0;
+pts = [];
+gravity_dir = 0;
+
+function init(_fst_pt, _lst_pt, life, _time) {
+    for (var i = _fst_pt; i < _lst_pt; i++) {
+        pts[i] = {
+            x: 0,
+            y: 0,
+            vx: 0,
+            vy: 0,
+            radius: 0,
+            r: 0,
+            g: 0,
+            b: 0,
+            life: 0
+        };
+        pts[i].x = (w / 2) + Math.sin(_time*.005)*w/2;
+        pts[i].y = (h / 2) + Math.cos(_time*.005)*h/2;
+        pts[i].vx = getR(-20, 20) * .1;
+        pts[i].vy = getR(-20, 20) * .1;
+        pts[i].v_mag = getR(-200, 200) * .01;
+        pts[i].v_dir = getR(0, 360);
+        pts[i].radius = getR(1, 10);
+        pts[i].r = getR(10, 50);
+        pts[i].g = getR(10, 40);
+        pts[i].b = getR(0, 50);
+        pts[i].life = life;
+
+        pts[i].vx = pts[i].v_mag * Math.cos(pts[i].v_dir * 3.1415 / 180);
+        pts[i].vy = pts[i].v_mag * Math.sin(pts[i].v_dir * 3.1415 / 180);
+
+    }
+}
+
+init(0,num_points,0);
+
+var time = 0;
+var fps = 120;
+
+var did_once = 5;
+
+
+animate();
+function animate() {
+
+        requestAnimationFrame(animate);
+        run_acc(time);
+
+        for (var i = 0; i < num_points; i++) {
+            
+            //if still alive.
+            if (pts[i].life > 0) {
+                move(i);
+                draw(i);
+                age_it(i);
+                
+                if (pts[i].b > 5) pts[i].g-=1; // change color over time?
+                if (pts[i].radius >.1) pts[i].radius *= .99;
+            }
+
+        }
+
+        if (did_once>0){
+   
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+          did_once--;
+        }
+  
+        time++;
+}
+
+function run_acc(_time){
+    if (_time % 5 == 0) {
+        init(0 + pt_acc, per_burst + pt_acc,900, _time);
+        pt_acc += per_burst;
+        pt_acc = pt_acc % num_points;
+        init(0 + pt_acc, per_burst + pt_acc,900, _time+620);
+        pt_acc += per_burst;
+        pt_acc = pt_acc % num_points;
+    }
+}
+
+function move(i) {
+    
+    pts[i].vx += Math.sin(i*.005)*.01; //grav placeholder
+    pts[i].vy += Math.cos(i*.005)*.01;
+    pts[i].x += pts[i].vx;
+    pts[i].y += pts[i].vy;
+}
+
+function draw(i) {
+    ctx.fillStyle = 'rgba(' + pts[i].r + ',' + pts[i].g + ',' + pts[i].b + ',' +1+ ')';
+    ctx.beginPath();
+    ctx.arc(pts[i].x, pts[i].y, pts[i].radius, 0, 2 * Math.PI);
+    ctx.fill();
+}
+
+function age_it(i) {
+    pts[i].life -= 2;
+}
+
+
+function getR(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+$(window).resize(function() {
+  
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+        
+  
+});
+    </script>
+</html>
