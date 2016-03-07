@@ -5,7 +5,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" src="normalize.css" />
 		<link rel="stylesheet" href="main.css">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />     
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 	</head>
 	<body>
         <canvas id="c"></canvas>
@@ -15,13 +15,15 @@
 				<h1>MUSIC DODGER</h1>
 
                 <h2>A minimal, musical action game by Ryan Mark Phillips</h2>
-				
+
                 <table><tr>
                     <td><img class="screenshot" src="screenshot1.png"></td>
                     <td><img class="screenshot" src="screenshot2.png"></td>
                 </tr></table>
-                
+
                 <div class="link"><a href="https://geo.itunes.apple.com/us/app/"><img src="Download_on_the_App_Store_Badge_US-UK_135x40.svg"></a></div>
+
+					<div class="foot">If you have questions or comments, contact me at: rmkpzx@gmail.com. Thanks!</div>			
 
 			</div>
 		</div>
@@ -92,13 +94,13 @@ function animate() {
         run_acc(time);
 
         for (var i = 0; i < num_points; i++) {
-            
+
             //if still alive.
             if (pts[i].life > 0) {
                 move(i);
                 draw(i);
                 age_it(i);
-                
+
                 if (pts[i].b > 5) pts[i].g-=1; // change color over time?
                 if (pts[i].radius >.1) pts[i].radius *= .99;
             }
@@ -106,12 +108,12 @@ function animate() {
         }
 
         if (did_once>0){
-   
+
           w = canvas.width = window.innerWidth;
           h = canvas.height = window.innerHeight;
           did_once--;
         }
-  
+
         time++;
 }
 
@@ -127,7 +129,7 @@ function run_acc(_time){
 }
 
 function move(i) {
-    
+
     pts[i].vx += Math.sin(i*.005)*.01; //grav placeholder
     pts[i].vy += Math.cos(i*.005)*.01;
     pts[i].x += pts[i].vx;
@@ -151,11 +153,11 @@ function getR(min, max) {
 }
 
 $(window).resize(function() {
-  
+
   w = canvas.width = window.innerWidth;
   h = canvas.height = window.innerHeight;
-        
-  
+
+
 });
     </script>
 </html>
